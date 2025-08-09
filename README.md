@@ -6,7 +6,7 @@ Hangman Project In Java:
 - Symbols and spaces remain unhidden.
 <img width="330" height="143" alt="Image" src="https://github.com/user-attachments/assets/e58615d4-35aa-440e-abd2-37ea13941793" />
 
--You are only expected to enter alphabetical letters. All inputs are case insensitive.
+- You are only expected to enter alphabetical letters. All inputs are case insensitive.
 <img width="670" height="262" alt="Image" src="https://github.com/user-attachments/assets/1861b1a5-d657-4709-9e7b-bfe148d25285" />
 
 - Lets you play again if you fail to guess correctly.
