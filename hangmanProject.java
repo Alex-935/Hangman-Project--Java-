@@ -88,9 +88,14 @@ public class hangmanProject {
         } catch (Exception e) {
         }
           
+        //generates a random word from the set and hides the letters. Then outputs it
         wordToGuess = randWord(wordSets[option - 1]);
         hiddenString = convertRandomWord(wordToGuess);
+        System.out.println("********************");
+        System.out.printf("The word to guess is: %s\n", hiddenString);
+        System.out.println("********************");
 
+        //Lets the user enter a letter
         System.out.println("To guess a letter, type in your letter.\n" + 
                                     "To guess a word, type 'word'.");
         scanner.nextLine();
@@ -109,6 +114,7 @@ public class hangmanProject {
                 System.out.println("That is not a valid guess");
             }
         };
+
 
         //System.out.println(guess); 
 
