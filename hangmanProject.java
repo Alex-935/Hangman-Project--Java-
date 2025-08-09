@@ -29,6 +29,7 @@ public class hangmanProject {
         String wordToGuess;//random word from set
         String guess;//user's guess
         String hiddenString;//has guessed letters displayed and not guessed letters hidden
+        int wrongGuesses = 0;//number of incorrect user guesses
 
         //for now I will create a list of Iron Maiden Songs to be the words to guess
         String[] words = {"H@ll0wed B3 th! n$m.", "World"};//may be used instead of songs
@@ -74,17 +75,22 @@ public class hangmanProject {
 
         System.out.println(wordToGuess);
         System.out.println(hiddenString);
+        System.out.println(getHangman(wrongGuesses));
 
 
         //Testing
-        ///*
+        /*
         for (int i = 0; i < 20; i++) {
 
             wordToGuess = randWord(wordSets[i%2]);
             System.out.println(wordToGuess);
             System.out.println(convertRandomWord(wordToGuess));
         }
-        //*/
+        */
+        for (int i = 0; i < 11 ; i++) {
+            
+            System.out.println(getHangman(i));
+        }
     }
 
 
@@ -155,6 +161,91 @@ public class hangmanProject {
 
         //return hidden string
         return guessedStatus;
+    }
+
+    public static String getHangman(int wrongGuesses) {
+
+        switch(wrongGuesses) {
+
+            //Pieces: L | () / || \
+            case 0 -> {return "";}
+            case 1 -> {return """
+                    ____________
+                    """;}
+            case 2 -> {return """
+                |     
+                |      
+                |    
+                |     
+                |____________
+                    """;}
+            case 3 -> {return """
+                ________
+                |     
+                |     
+                |    
+                |      
+                |____________
+                    """;}
+            case 4 -> {return """
+                ________
+                |      |
+                |      
+                |     
+                |      
+                |____________
+                    """;}
+            case 5 -> {return """
+                ________
+                |      |
+                |      ()
+                |     
+                |      
+                |____________
+                    """;}
+            case 6 -> {return """
+                ________
+                |      |
+                |      ()
+                |      ||
+                |      
+                |____________
+                    """;}
+            case 7 -> {return """
+                ________
+                |      |
+                |      ()
+                |     /||
+                |      
+                |____________
+                    """;}
+            case 8 -> {return """
+                ________
+                |      |
+                |      ()
+                |     /||\\
+                |      
+                |____________
+                    """;}
+            case 9 -> {return """
+                ________
+                |      |
+                |      ()
+                |     /||\\
+                |      /
+                |____________
+                    """;}
+            case 10 -> {return """
+                ________
+                |      |
+                |      ()
+                |     /||\\
+                |      /\\
+                |____________
+                    """;}
+        }
+
+        return "";
     }
     
 }
