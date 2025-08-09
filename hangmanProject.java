@@ -23,6 +23,7 @@ public class hangmanProject {
         
         // play again?
         */
+        Scanner scanner = new Scanner(System.in);
 
         //Variables:
         String wordSet;//user selects a topic the hangman word is based on
@@ -58,6 +59,7 @@ public class hangmanProject {
                 ************************
                 """);
         
+        
         /*
           wordToGuess - our random word from our set
           randWord() - generates a random word from a list of words
@@ -67,14 +69,13 @@ public class hangmanProject {
                                      the number of word sets available
                 - (-1): is because the options start counting from one while the index counts from 0
                         The user will enter the option which is one more than the sets index
-
+        
         //The user inputs which word set they want their word to be from, 
         //we then generate a random word from that set.*/
-        wordToGuess = randWord(wordSets[setOfWords(wordSets.length) - 1]);
+        //wordToGuess = randWord(wordSets[setOfWords(wordSets.length) - 1]);
+        wordToGuess = "Critical Acclaim";
         hiddenString = convertRandomWord(wordToGuess);
-        guess = userGuess();
-
-        
+        guess = userGuess();        
 
     }
 
@@ -238,7 +239,7 @@ public class hangmanProject {
     //User Guess Input and validation
     public static String userGuess() {
 
-        String guess = "";
+        String guess;
 
         try(Scanner scanner = new Scanner(System.in)) {
             
@@ -246,23 +247,20 @@ public class hangmanProject {
                                 "To guess a word, type 'word'.");
             System.out.print("Please input your guess: ");
 
-            guess = scanner.nextLine();
+            guess = scanner.nextLine().toLowerCase();
 
-            /* 
             if (guess.equals("word")) {
                 return guess;
                 
-            } else if (guess.matches("[a-zA-Z]")) {
+            } else if (guess.matches("[a-z]")) {
                 return guess;
             } 
-            */
-            return guess;
 
         } catch (Exception e) {
         }
 
         System.out.println("That is not a valid guess");
-        return guess;
+        return "";
     }
 
     //Testing Method
