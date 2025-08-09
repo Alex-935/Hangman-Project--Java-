@@ -72,6 +72,7 @@ public class hangmanProject {
         
         //The user inputs which word set they want their word to be from, 
         //we then generate a random word from that set.*/
+        //System.out.println(setOfWords(wordSets.length) -1);
         //wordToGuess = randWord(wordSets[setOfWords(wordSets.length) - 1]);
         wordToGuess = "Critical Acclaim";
         hiddenString = convertRandomWord(wordToGuess);
@@ -105,20 +106,28 @@ public class hangmanProject {
 
         //a while loop is going to be used to ensure an acceptable number is entered
         String wordSet = "";//word set the user has chosen
-            
+
+        boolean accepted = false;
         //ensures the user enters an integer
         try(Scanner scanner = new Scanner(System.in)) {
+
+            //boolean accepted = false;
+            do {
 
             //takes in option user choses
             System.out.print("Enter the number of the word set you would like to use: ");
             int option = scanner.nextInt();
-  
+
             //option the user enters is returned if the option exists
             if (option > 0 && option <= numOfSets) {
-              return option;
+                accepted = true;
+                return option;
             }
+
+            } while (!accepted);
         //if the user doesn't enter an integer
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         
         //returns 0 if option is invalid
         System.out.println("That is not an option, please try again.");
