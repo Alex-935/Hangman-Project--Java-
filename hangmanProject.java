@@ -29,7 +29,7 @@ public class hangmanProject {
         String wordSet = "";//user selects a topic the hangman word is based on
         String wordToGuess;//random word from set
         int option = 0;//the set the user wants their word from
-        String guess;//user's guess
+        String guess = "";//user's guess
         String hiddenString;//has guessed letters displayed and not guessed letters hidden
         int wrongGuesses = 0;//number of incorrect user guesses
         boolean accepted = false;//used for while loops for input validation
@@ -88,12 +88,29 @@ public class hangmanProject {
         } catch (Exception e) {
         }
           
-
         wordToGuess = randWord(wordSets[option - 1]);
-        wordToGuess = "Critical Acclaim";
         hiddenString = convertRandomWord(wordToGuess);
-        guess = userGuess();     
-        //guess = userGuess();   
+
+        System.out.println("To guess a letter, type in your letter.\n" + 
+                                    "To guess a word, type 'word'.");
+        scanner.nextLine();
+        accepted = false;
+        while(!accepted) {
+
+            System.out.print("Please input your guess: ");
+            guess = scanner.nextLine().toLowerCase();
+
+            if (guess.equals("word")) {
+                accepted = true;
+                
+            } else if (guess.matches("[a-z]")) {
+                accepted = true;
+            } else {
+                System.out.println("That is not a valid guess");
+            }
+        };
+
+        //System.out.println(guess); 
 
     }
 
@@ -216,34 +233,6 @@ public class hangmanProject {
                     """;}
         }
 
-        return "";
-    }
-
-
-    //User Guess Input and validation
-    public static String userGuess() {
-
-        String guess;
-
-        try(Scanner scanner = new Scanner(System.in)) {
-            
-            System.out.println("To guess a letter, type in your letter.\n" + 
-                                "To guess a word, type 'word'.");
-            System.out.print("Please input your guess: ");
-
-            guess = scanner.nextLine().toLowerCase();
-
-            if (guess.equals("word")) {
-                return guess;
-                
-            } else if (guess.matches("[a-z]")) {
-                return guess;
-            } 
-
-        } catch (Exception e) {
-        }
-
-        System.out.println("That is not a valid guess");
         return "";
     }
 
