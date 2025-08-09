@@ -150,6 +150,11 @@ public class hangmanProject {
                         hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i)) + hiddenString.substring(i + 1);
                     }
                     change = true;
+
+                    if (hiddenString.equals(wordToGuess)) {
+                        System.out.println("Conrgatulations, you guessed the word!");
+                        guessed = true;
+                    }
                 }
 
             }
