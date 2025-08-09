@@ -72,11 +72,10 @@ public class hangmanProject {
         //we then generate a random word from that set.*/
         wordToGuess = randWord(wordSets[setOfWords(wordSets.length) - 1]);
         hiddenString = convertRandomWord(wordToGuess);
+        guess = userGuess();
 
         
 
-
-        
     }
 
 
@@ -235,7 +234,36 @@ public class hangmanProject {
         return "";
     }
 
-    //User Input and validation
+
+    //User Guess Input and validation
+    public static String userGuess() {
+
+        String guess = "";
+
+        try(Scanner scanner = new Scanner(System.in)) {
+            
+            System.out.println("To guess a letter, type in your letter.\n" + 
+                                "To guess a word, type 'word'.");
+            System.out.print("Please input your guess: ");
+
+            guess = scanner.nextLine();
+
+            /* 
+            if (guess.equals("word")) {
+                return guess;
+                
+            } else if (guess.matches("[a-zA-Z]")) {
+                return guess;
+            } 
+            */
+            return guess;
+
+        } catch (Exception e) {
+        }
+
+        System.out.println("That is not a valid guess");
+        return guess;
+    }
 
     //Testing Method
     // testing(wordSets, wordToGuess, hiddenString, wrongGuesses)
