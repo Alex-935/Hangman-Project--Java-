@@ -1,4 +1,4 @@
-Hangman Project In Java:
+# Hangman Project In Java:
 
 - Offers ability to change the set of words to guess from.
 <img width="424" height="168" alt="Image" src="https://github.com/user-attachments/assets/25446be7-9be1-49b8-be55-fb344e090328" />
