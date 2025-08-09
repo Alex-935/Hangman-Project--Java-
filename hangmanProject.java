@@ -30,12 +30,14 @@ public class hangmanProject {
         String wordToGuess;//random word from set
         int option = 0;//the set the user wants their word from
         String guess = "";//user's guess
+        String wordGuess = "";//User guesses a word
+        boolean guessed = false;
         String hiddenString;//has guessed letters displayed and not guessed letters hidden
         int wrongGuesses = 0;//number of incorrect user guesses
         boolean accepted = false;//used for while loops for input validation
 
         //for now I will create a list of Iron Maiden Songs to be the words to guess
-        String[] words = {"H@ll0wed B3 th! n$m.", "World"};//may be used instead of songs
+        String[] words = {"Hi", "World"};//may be used instead of songs
         String[] songsIM = {"Hallowed Be Thy Name", "The Trooper", "Run to the Hills",
                           "The Number of the Beast", "Powerslave", "Aces High", "2 Minutes to Midnight",
                           "Wasted Years", "Stranger in a Strange Land", "Caught Somewhere in Time",
@@ -52,7 +54,7 @@ public class hangmanProject {
                              "The Stage", "Roman Sky", "Exist", "God Damn", "Not Ready to Die", "Mad Hatter", "Carry On",
                              "Welcome to the Family", "Danger Line", "Brompton Cocktail", "Lost", "Unbound (The Wild Ride)"
                             };// Bat Country is overrated
-        String[][] wordSets = {songsIM, songsA7X};
+        String[][] wordSets = {songsIM, songsA7X, words};
         int numOfSets = wordSets.length;
         
         //User Menu
@@ -113,10 +115,49 @@ public class hangmanProject {
             } else {
                 System.out.println("That is not a valid guess");
             }
-        };
+        }
 
 
-        //System.out.println(guess); 
+        if (guess.equals("word")) {
+
+            System.out.print("Please guess a word: ");
+            wordGuess = scanner.nextLine();
+            
+            if (wordGuess.toLowerCase().equals(wordToGuess.toLowerCase())) {
+
+                System.out.println("Conrgatulations, you guessed the word!");
+                guessed = true;
+            } else {
+
+                wrongGuesses += 1;
+                System.out.println("Unfortunately your guess was wrong!");
+                System.out.println(getHangman(wrongGuesses));
+            }
+            
+        } else {
+            
+            /*
+            boolean change = false;
+            for (int i = 0; i < hiddenString.length() -1; i++) {
+                
+                if (Character.toString(guess.charAt(i)).equals(Character.toString(wordToGuess.charAt(i)).toLowerCase())) {
+                    
+                    hiddenString = hiddenString.substring(0, i) + wordToGuess.substring(i).replace("_", wordToGuess.substring(i, i+1));
+                        
+                    }
+                    change = true;
+                }
+            
+            if (change) {
+                wrongGuesses += 1;
+                System.out.println("Unfortunately your guess was wrong!");
+                System.out.println(getHangman(wrongGuesses));
+            }
+                */
+        }
+
+        
+        System.out.println(hiddenString); 
 
     }
 
@@ -164,7 +205,11 @@ public class hangmanProject {
             //Pieces: L | () / || \
             case 0 -> {return "";}
             case 1 -> {return """
-                    ____________
+                
+                
+
+
+                ____________
                     """;}
             case 2 -> {return """
                 |     
@@ -242,25 +287,4 @@ public class hangmanProject {
         return "";
     }
 
-    //Testing Method
-    // testing(wordSets, wordToGuess, hiddenString, wrongGuesses)
-    public static void testing(String[][] wordSets, String wordToGuess, String hiddenString, int wrongGuesses) {
-
-        System.out.println(wordToGuess);
-        System.out.println(hiddenString);
-        System.out.println(getHangman(wrongGuesses));
-
-        for (int i = 0; i < 20; i++) {
-
-            wordToGuess = randWord(wordSets[i%2]);
-            System.out.println(wordToGuess);
-            System.out.println(convertRandomWord(wordToGuess));
-        }
-        
-        for (int i = 0; i < 11 ; i++) {
-            
-            System.out.println(getHangman(i));
-        }
-    }
-    
 }
