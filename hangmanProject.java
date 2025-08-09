@@ -40,7 +40,15 @@ public class hangmanProject {
         boolean toPlayAgain;//boolean for play agin
 
         //Topics the hangman words will be based on and list of said words
-        String[] words = {"Hi", "World"};//used for testing mainly
+        //Countries pack
+        String[] countries = {"England", "Germany", "France", "Italy", "Poland", "Japan",
+                              "Ireland","Argentina", "Columbia", "Spain", "Greece", "Canada",
+                              "United States of America", "United Kingdom", "Liberia", "Iran",
+                              "Democratic Republic of Congo", "South Africa", "Egypt", "India",
+                              "Former Yugoslav Republic of Macedonia", "Morocco", "Madagascar",
+                              "South Korea", "Mexico", "Bangladesh", "Australia", "New Zealand",
+                              "Singapore", "Sudan", "Nepal", "Sweden", "Denmark", "Finland"
+                            };
         //Iron Maiden Songs
         String[] songsIM = {"Hallowed Be Thy Name", "The Trooper", "Run to the Hills",
                           "The Number of the Beast", "Powerslave", "Aces High", "2 Minutes to Midnight",
@@ -59,7 +67,7 @@ public class hangmanProject {
                              "The Stage", "Roman Sky", "Exist", "God Damn", "Not Ready to Die", "Mad Hatter", "Carry On",
                              "Welcome to the Family", "Danger Line", "Brompton Cocktail", "Lost", "Unbound (The Wild Ride)"
                             };// Bat Country is overrated so not included :)
-        String[][] wordSets = {songsA7X, songsIM};//set of word topics
+        String[][] wordSets = {countries, songsA7X, songsIM};//set of word topics
         int numOfSets = wordSets.length;//number of topics
         
         //User Menu
@@ -73,9 +81,10 @@ public class hangmanProject {
         do {    
             //display's topics options
             System.out.print("""
-                    The word sets available are: 
-                    1. Avenged Sevenfold Songs
-                    2. Iron Maiden Songs
+                    The word sets available are:
+                    1. Countries 
+                    2. Avenged Sevenfold Songs
+                    3. Iron Maiden Songs
                     """);
 
 
@@ -94,7 +103,7 @@ public class hangmanProject {
 
             //if the user doesn't enter an integer
             } catch (Exception e) {
-                System.out.println("Not a valid option, you get the Avenged Sevenfold song list");
+                System.out.println("Not a valid option, your word will be a country");
                 option = 1;
             }
             
