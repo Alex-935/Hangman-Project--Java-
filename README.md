@@ -15,7 +15,11 @@ Hangman Project In Java:
 - Easy to add your own sets of words to guess from.
 <img width="906" height="579" alt="Image" src="https://github.com/user-attachments/assets/513c3bfd-6df3-453e-9be3-24d0984cb7d7" />
 
+- Kanban Board used to track project
+<img width="1073" height="742" alt="Image" src="https://github.com/user-attachments/assets/99a63cc7-ef5f-4cc2-955a-d84703ad2441" />
+
 Furthermore: 
  - The word to guess will be that of a country if no pack is selected when prompted.
  - All user inputs are validated and can handle unexpected cases.
  - You can play over as many times as you want.
+
