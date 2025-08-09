@@ -59,7 +59,7 @@ public class hangmanProject {
                              "The Stage", "Roman Sky", "Exist", "God Damn", "Not Ready to Die", "Mad Hatter", "Carry On",
                              "Welcome to the Family", "Danger Line", "Brompton Cocktail", "Lost", "Unbound (The Wild Ride)"
                             };// Bat Country is overrated so not included :)
-        String[][] wordSets = {songsA7X, songsIM, words};//set of word topics
+        String[][] wordSets = {songsA7X, songsIM};//set of word topics
         int numOfSets = wordSets.length;//number of topics
         
         //User Menu
@@ -94,8 +94,8 @@ public class hangmanProject {
 
             //if the user doesn't enter an integer
             } catch (Exception e) {
-                System.out.println("Not a valid option");
-                break;
+                System.out.println("Not a valid option, you get the Avenged Sevenfold song list");
+                option = 1;
             }
             
             //generates a random word from the set and hides the letters. Then outputs it
