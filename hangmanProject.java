@@ -149,6 +149,7 @@ public class hangmanProject {
         return guessedStatus;
     }
 
+    //hangman pictures for each life lost
     public static String getHangman(int wrongGuesses) {
 
         switch(wrongGuesses) {
@@ -233,6 +234,8 @@ public class hangmanProject {
 
         return "";
     }
+
+    //User Input and validation
 
     //Testing Method
     // testing(wordSets, wordToGuess, hiddenString, wrongGuesses)
