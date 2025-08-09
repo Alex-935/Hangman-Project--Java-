@@ -98,77 +98,85 @@ public class hangmanProject {
         System.out.printf("The word to guess is: %s\n", hiddenString);
         System.out.println("********************");
 
-        //Lets the user enter a letter
-        System.out.println("To guess a letter, type in your letter.\n" + 
-                                    "To guess a word, type 'word'.");
-        scanner.nextLine();
-        accepted = false;
-        while(!accepted) {
+        do {
+            //Lets the user enter a letter
+            System.out.println("To guess a letter, type in your letter.");
+            System.out.println("To guess a word, type 'word'.");
 
-            System.out.print("Please input your guess: ");
-            guess = scanner.nextLine().toLowerCase();
+            accepted = false;
+            while(!accepted) {
+
+                System.out.print("Please input your guess: ");
+                guess = scanner.nextLine().toLowerCase();
+
+                if (guess.equals("word")) {
+                    accepted = true;
+                    
+                } else if (guess.matches("[a-z]")) {
+                    accepted = true;
+                } else {
+                    System.out.println(guess);
+                    System.out.println("That is not a valid guess");
+                }
+            }
+
 
             if (guess.equals("word")) {
-                accepted = true;
+
+                System.out.print("Please guess a word: ");
+                wordGuess = scanner.nextLine();
                 
-            } else if (guess.matches("[a-z]")) {
-                accepted = true;
-            } else {
-                System.out.println("That is not a valid guess");
-            }
-        }
+                if (wordGuess.toLowerCase().equals(wordToGuess.toLowerCase())) {
 
+                    System.out.println("Conrgatulations, you guessed the word!");
+                    guessed = true;
+                } else {
 
-        if (guess.equals("word")) {
-
-            System.out.print("Please guess a word: ");
-            wordGuess = scanner.nextLine();
-            
-            if (wordGuess.toLowerCase().equals(wordToGuess.toLowerCase())) {
-
-                System.out.println("Conrgatulations, you guessed the word!");
-                guessed = true;
-            } else {
-
-                wrongGuesses += 1;
-                System.out.println("Unfortunately your guess was wrong!");
-                System.out.println(getHangman(wrongGuesses));
-            }
-            
-        } else {
-            
-            
-            change = false;
-            for (int i = 0; i < hiddenString.length(); i++) {
+                    wrongGuesses += 1;
+                    System.out.println("Unfortunately your guess was wrong!");
+                    System.out.println(getHangman(wrongGuesses));
+                }
                 
-                 
-                if (Character.toString(guess.charAt(0)).equals(Character.toString(wordToGuess.charAt(i)).toLowerCase())) {
+            } else {
+                
+                
+                change = false;
+                for (int i = 0; i < hiddenString.length(); i++) {
                     
-                    if (i == hiddenString.length() -1) {
-                        hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i));
-                    } else {
-                        hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i)) + hiddenString.substring(i + 1);
-                    }
-                    change = true;
+                    
+                    if (Character.toString(guess.charAt(0)).equals(Character.toString(wordToGuess.charAt(i)).toLowerCase())) {
+                        
+                        if (i == hiddenString.length() -1) {
+                            hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i));
+                        } else {
+                            hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i)) + hiddenString.substring(i + 1);
+                        }
+                        
+                        change = true;
 
-                    if (hiddenString.equals(wordToGuess)) {
-                        System.out.println("Conrgatulations, you guessed the word!");
-                        guessed = true;
+                        if (hiddenString.equals(wordToGuess)) {
+                            System.out.println("Conrgatulations, you guessed the word!");
+                            guessed = true;
+                            break;
+                        }
                     }
+
                 }
 
-            }
-
-            if (!change) {
-                wrongGuesses += 1;
-                System.out.println("Unfortunately your guess was wrong!");
-                System.out.println(getHangman(wrongGuesses));
-            }
+                if (!change) {
+                    wrongGuesses += 1;
+                    System.out.println("Unfortunately your guess was wrong!");
+                    System.out.println(getHangman(wrongGuesses));
+                } else if (guessed == false) {
+                    System.out.println(hiddenString);
+                }
                 
-        }
-
-        System.out.println(wordToGuess);
-        System.out.println(hiddenString); 
+                if (wrongGuesses == 10) {
+                    System.out.println("Too bad! The word was: " + wordToGuess);
+                    break;
+                }
+            }
+        } while (!guessed);
 
     }
 
