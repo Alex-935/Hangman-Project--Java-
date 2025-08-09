@@ -27,18 +27,21 @@ public class hangmanProject {
 
         //Variables:
         String wordSet = "";//user selects a topic the hangman word is based on
-        String wordToGuess;//random word from set
-        int option = 0;//the set the user wants their word from
-        String guess = "";//user's guess
-        String wordGuess = "";//User guesses a word
-        boolean guessed = false;
-        String hiddenString;//has guessed letters displayed and not guessed letters hidden
+        String wordToGuess;//random word from selected set, word the user needs to correctly guess
+        int option = 0;//user selects a topic the hangman word is based on
+        String guess = "";//user guesses a letter in the word or enters 'word' to guess the word itself
+        String wordGuess = "";//guess at the word itself
+        boolean guessed = false;//has the word been guessed correctly
+        String hiddenString;//has guessed letters displayed and not guessed letters hidden e.g. He__o _o_ld
         int wrongGuesses = 0;//number of incorrect user guesses
-        boolean accepted = false;//used for while loops for input validation
-        boolean change = false;//used for validation
+        boolean accepted = false;//used in while loops to validate inputs
+        boolean change = false;//used in while loops to validate inputs
+        String playAgain;//string responce to if they want to play again
+        boolean toPlayAgain;//boolean for play agin
 
-        //for now I will create a list of Iron Maiden Songs to be the words to guess
-        String[] words = {"Hi", "World"};//may be used instead of songs
+        //Topics the hangman words will be based on and list of said words
+        String[] words = {"Hi", "World"};//used for testing mainly
+        //Iron Maiden Songs
         String[] songsIM = {"Hallowed Be Thy Name", "The Trooper", "Run to the Hills",
                           "The Number of the Beast", "Powerslave", "Aces High", "2 Minutes to Midnight",
                           "Wasted Years", "Stranger in a Strange Land", "Caught Somewhere in Time",
@@ -47,6 +50,7 @@ public class hangmanProject {
                           "Fear of the Dark", "The Evil That Men Do", "Different World", "For the Greater Good fo God",
                           "Doctor Doctor", "Flash of the Blade", "The Red and the Black", "Futureal"
                         };
+        //Avenged Sevenfold Songs
         String[] songsA7X = {"Critical Acclaim", "Scream", "Afterlife", "Gunslinger", "A Little Piece of Heaven",
                              "Dear God", "Almost Easy", "Nightmare", "So Far Away", "Victim",
                              "Buried Alive", "Shepherd of Fire", "Hail to the King", "Coming Home",
@@ -54,9 +58,9 @@ public class hangmanProject {
                              "Seize the Day", "Trashed and Scattered", "M.I.A.", "Sidewinder", "Beast and the Harlot",
                              "The Stage", "Roman Sky", "Exist", "God Damn", "Not Ready to Die", "Mad Hatter", "Carry On",
                              "Welcome to the Family", "Danger Line", "Brompton Cocktail", "Lost", "Unbound (The Wild Ride)"
-                            };// Bat Country is overrated
-        String[][] wordSets = {songsIM, songsA7X, words};
-        int numOfSets = wordSets.length;
+                            };// Bat Country is overrated so not included :)
+        String[][] wordSets = {songsA7X, songsIM, words};//set of word topics
+        int numOfSets = wordSets.length;//number of topics
         
         //User Menu
         System.out.print("""
@@ -64,119 +68,144 @@ public class hangmanProject {
                    Welcome to Hangman
                 ************************
                 """);
-        
-        //display set options
-        System.out.print("""
-                The word sets available are: 
-                  1. Avenged Sevenfold Songs
-                  2. Iron Maiden Songs
-                """);
+
+        //do while loop allows the player to play again
+        do {    
+            //display's topics options
+            System.out.print("""
+                    The word sets available are: 
+                    1. Avenged Sevenfold Songs
+                    2. Iron Maiden Songs
+                    """);
 
 
-        //a while loop is going to be used to ensure an acceptable number is entered
-        //ensures the user enters an integer
-        try {
+            //a while loop is going to be used to ensure an acceptable number is entered
+            try {
+                do {
+                    //takes in option user choses
+                    System.out.print("Enter the number of the word set you would like to use: ");
+                    option = scanner.nextInt();
+
+                    //option the user enters is returned if the option exists
+                    if (option > 0 && option <= numOfSets) {
+                        accepted = true;
+                    }
+                } while (!accepted);
+
+            //if the user doesn't enter an integer
+            } catch (Exception e) {
+                System.out.println("Not a valid option");
+                break;
+            }
+            
+            //generates a random word from the set and hides the letters. Then outputs it
+            wordToGuess = randWord(wordSets[option - 1]);
+            hiddenString = convertRandomWord(wordToGuess);
+            System.out.println("********************");
+            System.out.printf("The word to guess is: %s\n", hiddenString);
+            System.out.println("********************");
+
             do {
-                //takes in option user choses
-                System.out.print("Enter the number of the word set you would like to use: ");
-                option = scanner.nextInt();
+                //Lets the user enter a letter
+                System.out.println("To guess a letter, type in your letter.");
+                System.out.println("To guess a word, type 'word'.");
 
-                //option the user enters is returned if the option exists
-                if (option > 0 && option <= numOfSets) {
-                    accepted = true;
+                accepted = false;
+                while(!accepted) {
+
+                    System.out.print("Please input your guess: ");
+                    guess = scanner.nextLine().toLowerCase();
+
+                    if (guess.equals("word")) {
+                        accepted = true;
+                        
+                    } else if (guess.matches("[a-z]")) {
+                        accepted = true;
+                    } else {
+                        System.out.println("That is not a valid guess");
+                    }
                 }
-            } while (!accepted);
 
-        //if the user doesn't enter an integer
-        } catch (Exception e) {
-        }
-          
-        //generates a random word from the set and hides the letters. Then outputs it
-        wordToGuess = randWord(wordSets[option - 1]);
-        hiddenString = convertRandomWord(wordToGuess);
-        System.out.println("********************");
-        System.out.printf("The word to guess is: %s\n", hiddenString);
-        System.out.println("********************");
-
-        do {
-            //Lets the user enter a letter
-            System.out.println("To guess a letter, type in your letter.");
-            System.out.println("To guess a word, type 'word'.");
-
-            accepted = false;
-            while(!accepted) {
-
-                System.out.print("Please input your guess: ");
-                guess = scanner.nextLine().toLowerCase();
 
                 if (guess.equals("word")) {
-                    accepted = true;
+
+                    System.out.print("Please guess a word: ");
+                    wordGuess = scanner.nextLine();
                     
-                } else if (guess.matches("[a-z]")) {
-                    accepted = true;
-                } else {
-                    System.out.println(guess);
-                    System.out.println("That is not a valid guess");
-                }
-            }
+                    if (wordGuess.toLowerCase().equals(wordToGuess.toLowerCase())) {
 
+                        System.out.println("Conrgatulations, you guessed the word!");
+                        guessed = true;
+                    } else {
 
-            if (guess.equals("word")) {
+                        wrongGuesses += 1;
+                        System.out.println("Unfortunately your guess was wrong!");
+                        System.out.println(getHangman(wrongGuesses));
 
-                System.out.print("Please guess a word: ");
-                wordGuess = scanner.nextLine();
-                
-                if (wordGuess.toLowerCase().equals(wordToGuess.toLowerCase())) {
-
-                    System.out.println("Conrgatulations, you guessed the word!");
-                    guessed = true;
-                } else {
-
-                    wrongGuesses += 1;
-                    System.out.println("Unfortunately your guess was wrong!");
-                    System.out.println(getHangman(wrongGuesses));
-                }
-                
-            } else {
-                
-                
-                change = false;
-                for (int i = 0; i < hiddenString.length(); i++) {
-                    
-                    
-                    if (Character.toString(guess.charAt(0)).equals(Character.toString(wordToGuess.charAt(i)).toLowerCase())) {
-                        
-                        if (i == hiddenString.length() -1) {
-                            hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i));
-                        } else {
-                            hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i)) + hiddenString.substring(i + 1);
-                        }
-                        
-                        change = true;
-
-                        if (hiddenString.equals(wordToGuess)) {
-                            System.out.println("Conrgatulations, you guessed the word!");
-                            guessed = true;
+                        if (wrongGuesses == 10) {
+                            System.out.println("Too bad! The word was: " + wordToGuess);
                             break;
                         }
                     }
+                    
+                } else {
+                    
+                    
+                    change = false;
+                    for (int i = 0; i < hiddenString.length(); i++) {
+                        
+                        
+                        if (Character.toString(guess.charAt(0)).equals(Character.toString(wordToGuess.charAt(i)).toLowerCase())) {
+                            
+                            if (i == hiddenString.length() -1) {
+                                hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i));
+                            } else {
+                                hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i)) + hiddenString.substring(i + 1);
+                            }
+                            
+                            change = true;
 
-                }
+                            if (hiddenString.equals(wordToGuess)) {
+                                System.out.println("Conrgatulations, you guessed the word!");
+                                guessed = true;
+                                break;
+                            }
+                        }
 
-                if (!change) {
-                    wrongGuesses += 1;
-                    System.out.println("Unfortunately your guess was wrong!");
-                    System.out.println(getHangman(wrongGuesses));
-                } else if (guessed == false) {
-                    System.out.println(hiddenString);
+                    }
+
+                    if (!change) {
+                        wrongGuesses += 1;
+                        System.out.println("Unfortunately your guess was wrong!");
+                        System.out.println(getHangman(wrongGuesses));
+                    } else if (guessed == false) {
+                        System.out.println(hiddenString);
+                    }
+                    
+                    if (wrongGuesses == 10) {
+                        System.out.println("Too bad! The word was: " + wordToGuess);
+                        break;
+                    }
                 }
-                
-                if (wrongGuesses == 10) {
-                    System.out.println("Too bad! The word was: " + wordToGuess);
-                    break;
-                }
+            } while (!guessed);
+
+            System.out.print("Do you want to play again? (y/n): ");
+            playAgain = scanner.nextLine().toLowerCase();
+
+            if (playAgain.equals("y")) {
+                guess = "";
+                wordGuess = "";
+                guessed = false;
+                wrongGuesses = 0;
+                accepted = false;
+                change = false;
+                toPlayAgain = true;
+            } else {
+                toPlayAgain = false;
+                System.out.println("Goodbye, Thank you for playing.");
             }
-        } while (!guessed);
+
+        } while (toPlayAgain);
 
     }
 
