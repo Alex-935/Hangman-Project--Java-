@@ -73,24 +73,10 @@ public class hangmanProject {
         wordToGuess = randWord(wordSets[setOfWords(wordSets.length) - 1]);
         hiddenString = convertRandomWord(wordToGuess);
 
-        System.out.println(wordToGuess);
-        System.out.println(hiddenString);
-        System.out.println(getHangman(wrongGuesses));
+        
 
 
-        //Testing
-        /*
-        for (int i = 0; i < 20; i++) {
-
-            wordToGuess = randWord(wordSets[i%2]);
-            System.out.println(wordToGuess);
-            System.out.println(convertRandomWord(wordToGuess));
-        }
-        */
-        for (int i = 0; i < 11 ; i++) {
-            
-            System.out.println(getHangman(i));
-        }
+        
     }
 
 
@@ -246,6 +232,27 @@ public class hangmanProject {
         }
 
         return "";
+    }
+
+    //Testing Method
+    // testing(wordSets, wordToGuess, hiddenString, wrongGuesses)
+    public static void testing(String[][] wordSets, String wordToGuess, String hiddenString, int wrongGuesses) {
+
+        System.out.println(wordToGuess);
+        System.out.println(hiddenString);
+        System.out.println(getHangman(wrongGuesses));
+
+        for (int i = 0; i < 20; i++) {
+
+            wordToGuess = randWord(wordSets[i%2]);
+            System.out.println(wordToGuess);
+            System.out.println(convertRandomWord(wordToGuess));
+        }
+        
+        for (int i = 0; i < 11 ; i++) {
+            
+            System.out.println(getHangman(i));
+        }
     }
     
 }
