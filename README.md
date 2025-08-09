@@ -18,6 +18,7 @@ Hangman Project In Java:
 - Kanban Board used to track project
 <img width="1073" height="512" alt="Image" src="https://github.com/user-attachments/assets/22890277-a814-4389-a82f-75fff3205be9" />
 
+
 Furthermore: 
  - The word to guess will be that of a country if no pack is selected when prompted.
  - All user inputs are validated and can handle unexpected cases.
