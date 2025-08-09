@@ -21,17 +21,18 @@ public class hangmanProject {
             - agame over
             - reveal word
         
-            // play again?
+        // play again?
         */
 
         //Variables:
         String wordSet;//user selects a topic the hangman word is based on
         String wordToGuess;//random word from set
         String guess;//user's guess
-        String guessedStatus;//has guessed letters displayed and not guessed letters hidden
+        String hiddenString;//has guessed letters displayed and not guessed letters hidden
+        int wrongGuesses = 0;//number of incorrect user guesses
 
         //for now I will create a list of Iron Maiden Songs to be the words to guess
-        String[] words = {"Hello", "World"};//may be used instead of songs
+        String[] words = {"H@ll0wed B3 th! n$m.", "World"};//may be used instead of songs
         String[] songsIM = {"Hallowed Be Thy Name", "The Trooper", "Run to the Hills",
                           "The Number of the Beast", "Powerslave", "Aces High", "2 Minutes to Midnight",
                           "Wasted Years", "Stranger in a Strange Land", "Caught Somewhere in Time",
@@ -70,11 +71,25 @@ public class hangmanProject {
         //The user inputs which word set they want their word to be from, 
         //we then generate a random word from that set.*/
         wordToGuess = randWord(wordSets[setOfWords(wordSets.length) - 1]);
+        hiddenString = convertRandomWord(wordToGuess);
+
+        System.out.println(wordToGuess);
+        System.out.println(hiddenString);
+        System.out.println(getHangman(wrongGuesses));
+
 
         //Testing
+        /*
         for (int i = 0; i < 20; i++) {
+
             wordToGuess = randWord(wordSets[i%2]);
             System.out.println(wordToGuess);
+            System.out.println(convertRandomWord(wordToGuess));
+        }
+        */
+        for (int i = 0; i < 11 ; i++) {
+            
+            System.out.println(getHangman(i));
         }
     }
 
@@ -124,5 +139,113 @@ public class hangmanProject {
         return 0;
     }
 
+    //converts random word to a ____ format
+    public static String convertRandomWord(String wordToGuess) {
+
+        //empty string to put the word into as it is being converted
+        String guessedStatus = "";
+
+        //for each letter in our word to guess:
+        for (int i = 0; i < wordToGuess.length(); i++) {
+
+            //one letter at a time, changes each char into a string so .matches() can be used
+            String letter = Character.toString(wordToGuess.charAt(i));
+
+            //if the letter is in the alphabet,  replace it with _. Symbols are unaffected.
+            if (letter.matches("[a-zA-Z]")) {
+                guessedStatus += "_";
+            } else {
+                guessedStatus += letter;
+            }
+        }
+
+        //return hidden string
+        return guessedStatus;
+    }
+
+    public static String getHangman(int wrongGuesses) {
+
+        switch(wrongGuesses) {
+
+            //Pieces: L | () / || \
+            case 0 -> {return "";}
+            case 1 -> {return """
+                    ____________
+                    """;}
+            case 2 -> {return """
+                |     
+                |      
+                |    
+                |     
+                |____________
+                    """;}
+            case 3 -> {return """
+                ________
+                |     
+                |     
+                |    
+                |      
+                |____________
+                    """;}
+            case 4 -> {return """
+                ________
+                |      |
+                |      
+                |     
+                |      
+                |____________
+                    """;}
+            case 5 -> {return """
+                ________
+                |      |
+                |      ()
+                |     
+                |      
+                |____________
+                    """;}
+            case 6 -> {return """
+                ________
+                |      |
+                |      ()
+                |      ||
+                |      
+                |____________
+                    """;}
+            case 7 -> {return """
+                ________
+                |      |
+                |      ()
+                |     /||
+                |      
+                |____________
+                    """;}
+            case 8 -> {return """
+                ________
+                |      |
+                |      ()
+                |     /||\\
+                |      
+                |____________
+                    """;}
+            case 9 -> {return """
+                ________
+                |      |
+                |      ()
+                |     /||\\
+                |      /
+                |____________
+                    """;}
+            case 10 -> {return """
+                ________
+                |      |
+                |      ()
+                |     /||\\
+                |      /\\
+                |____________
+                    """;}
+        }
+
+        return "";
+    }
     
 }
