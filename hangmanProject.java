@@ -26,11 +26,13 @@ public class hangmanProject {
         Scanner scanner = new Scanner(System.in);
 
         //Variables:
-        String wordSet;//user selects a topic the hangman word is based on
+        String wordSet = "";//user selects a topic the hangman word is based on
         String wordToGuess;//random word from set
+        int option = 0;//the set the user wants their word from
         String guess;//user's guess
         String hiddenString;//has guessed letters displayed and not guessed letters hidden
         int wrongGuesses = 0;//number of incorrect user guesses
+        boolean accepted = false;//used for while loops for input validation
 
         //for now I will create a list of Iron Maiden Songs to be the words to guess
         String[] words = {"H@ll0wed B3 th! n$m.", "World"};//may be used instead of songs
@@ -51,6 +53,7 @@ public class hangmanProject {
                              "Welcome to the Family", "Danger Line", "Brompton Cocktail", "Lost", "Unbound (The Wild Ride)"
                             };// Bat Country is overrated
         String[][] wordSets = {songsIM, songsA7X};
+        int numOfSets = wordSets.length;
         
         //User Menu
         System.out.print("""
@@ -59,24 +62,38 @@ public class hangmanProject {
                 ************************
                 """);
         
-        
-        /*
-          wordToGuess - our random word from our set
-          randWord() - generates a random word from a list of words
-          wordSets[] - is our set of word sets
-          setOfWords - gets the number of the set the user wants to generate the word from
-                - (wordSets.length): is so we can check the users selection doesn' exceed 
-                                     the number of word sets available
-                - (-1): is because the options start counting from one while the index counts from 0
-                        The user will enter the option which is one more than the sets index
-        
-        //The user inputs which word set they want their word to be from, 
-        //we then generate a random word from that set.*/
-        //System.out.println(setOfWords(wordSets.length) -1);
-        //wordToGuess = randWord(wordSets[setOfWords(wordSets.length) - 1]);
+        //display set options
+        System.out.print("""
+                The word sets available are: 
+                  1. Avenged Sevenfold Songs
+                  2. Iron Maiden Songs
+                """);
+
+
+        //a while loop is going to be used to ensure an acceptable number is entered
+        //ensures the user enters an integer
+        try {
+            do {
+                //takes in option user choses
+                System.out.print("Enter the number of the word set you would like to use: ");
+                option = scanner.nextInt();
+
+                //option the user enters is returned if the option exists
+                if (option > 0 && option <= numOfSets) {
+                    accepted = true;
+                }
+            } while (!accepted);
+
+        //if the user doesn't enter an integer
+        } catch (Exception e) {
+        }
+          
+
+        wordToGuess = randWord(wordSets[option - 1]);
         wordToGuess = "Critical Acclaim";
         hiddenString = convertRandomWord(wordToGuess);
-        guess = userGuess();        
+        guess = userGuess();     
+        //guess = userGuess();   
 
     }
 
@@ -90,48 +107,6 @@ public class hangmanProject {
         //nextInt(words.length) will generate a random value between 0 and the 1 less than the length of list
         //that value is then used as an index in the word lists
         return words[random.nextInt(words.length)];
-    }
-
-
-    //Take an input from the user asking which word set they want to use
-    //use switch to select and return a question set
-    public static int setOfWords(int numOfSets) {
-
-        //display set options
-        System.out.print("""
-                The word sets available are: 
-                  1. Avenged Sevenfold Songs
-                  2. Iron Maiden Songs
-                """);
-
-        //a while loop is going to be used to ensure an acceptable number is entered
-        String wordSet = "";//word set the user has chosen
-
-        boolean accepted = false;
-        //ensures the user enters an integer
-        try(Scanner scanner = new Scanner(System.in)) {
-
-            //boolean accepted = false;
-            do {
-
-            //takes in option user choses
-            System.out.print("Enter the number of the word set you would like to use: ");
-            int option = scanner.nextInt();
-
-            //option the user enters is returned if the option exists
-            if (option > 0 && option <= numOfSets) {
-                accepted = true;
-                return option;
-            }
-
-            } while (!accepted);
-        //if the user doesn't enter an integer
-        } catch (Exception e) {
-        }
-        
-        //returns 0 if option is invalid
-        System.out.println("That is not an option, please try again.");
-        return 0;
     }
 
     //converts random word to a ____ format
