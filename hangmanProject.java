@@ -26,9 +26,12 @@ public class hangmanProject {
 
         //Variables:
         String wordSet;//user selects a topic the hangman word is based on
+        String wordToGuess;//random word from set
+        String guess;//user's guess
+        String guessedStatus;//has guessed letters displayed and not guessed letters hidden
 
         //for now I will create a list of Iron Maiden Songs to be the words to guess
-        String[] words = {};//may be used instead of songs
+        String[] words = {"Hello", "World"};//may be used instead of songs
         String[] songsIM = {"Hallowed Be Thy Name", "The Trooper", "Run to the Hills",
                           "The Number of the Beast", "Powerslave", "Aces High", "2 Minutes to Midnight",
                           "Wasted Years", "Stranger in a Strange Land", "Caught Somewhere in Time",
@@ -45,7 +48,7 @@ public class hangmanProject {
                              "The Stage", "Roman Sky", "Exist", "God Damn", "Not Ready to Die", "Mad Hatter", "Carry On",
                              "Welcome to the Family", "Danger Line", "Brompton Cocktail", "Lost", "Unbound (The Wild Ride)"
                             };// Bat Country is overrated
-
+        String[][] wordSets = {songsIM, songsA7X};
         
         //User Menu
         System.out.print("""
@@ -54,12 +57,25 @@ public class hangmanProject {
                 ************************
                 """);
         
-      
-        wordSet = setOfWords();//validates the set choice from the user
-        System.out.println(wordSet);//testing function output
-        
+        /*
+          wordToGuess - our random word from our set
+          randWord() - generates a random word from a list of words
+          wordSets[] - is our set of word sets
+          setOfWords - gets the number of the set the user wants to generate the word from
+                - (wordSets.length): is so we can check the users selection doesn' exceed 
+                                     the number of word sets available
+                - (-1): is because the options start counting from one while the index counts from 0
+                        The user will enter the option which is one more than the sets index
 
+        //The user inputs which word set they want their word to be from, 
+        //we then generate a random word from that set.*/
+        wordToGuess = randWord(wordSets[setOfWords(wordSets.length) - 1]);
 
+        //Testing
+        for (int i = 0; i < 20; i++) {
+            wordToGuess = randWord(wordSets[i%2]);
+            System.out.println(wordToGuess);
+        }
     }
 
 
@@ -69,13 +85,15 @@ public class hangmanProject {
 
         Random random = new Random();
 
+        //nextInt(words.length) will generate a random value between 0 and the 1 less than the length of list
+        //that value is then used as an index in the word lists
         return words[random.nextInt(words.length)];
     }
 
 
     //Take an input from the user asking which word set they want to use
     //use switch to select and return a question set
-    public static String setOfWords() {
+    public static int setOfWords(int numOfSets) {
 
         //display set options
         System.out.print("""
@@ -90,25 +108,20 @@ public class hangmanProject {
         //ensures the user enters an integer
         try(Scanner scanner = new Scanner(System.in)) {
 
-            System.out.print("Enter the number of the word set you would like to use:");
+            //takes in option user choses
+            System.out.print("Enter the number of the word set you would like to use: ");
+            int option = scanner.nextInt();
   
-            //option the user enters is set if the option exists
-            switch (scanner.nextInt()) {
-
-                case 1 -> wordSet = "songsA7X";
-                case 2 -> wordSet = "songsIM";
-                default -> {
-                    System.out.println("That number is not available, please try again.");
-                    break;
-                }
+            //option the user enters is returned if the option exists
+            if (option > 0 && option <= numOfSets) {
+              return option;
             }
         //if the user doesn't enter an integer
-        } catch (Exception e) {
-            System.out.println("That is not an option, please try again.");
-        }
+        } catch (Exception e) {}
         
-        //returns the song set name if valid option entered, empty string otherwise
-        return wordSet;
+        //returns 0 if option is invalid
+        System.out.println("That is not an option, please try again.");
+        return 0;
     }
 
     
