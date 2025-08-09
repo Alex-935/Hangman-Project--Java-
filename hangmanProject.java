@@ -35,6 +35,7 @@ public class hangmanProject {
         String hiddenString;//has guessed letters displayed and not guessed letters hidden
         int wrongGuesses = 0;//number of incorrect user guesses
         boolean accepted = false;//used for while loops for input validation
+        boolean change = false;//used for validation
 
         //for now I will create a list of Iron Maiden Songs to be the words to guess
         String[] words = {"Hi", "World"};//may be used instead of songs
@@ -136,27 +137,32 @@ public class hangmanProject {
             
         } else {
             
-            /*
-            boolean change = false;
-            for (int i = 0; i < hiddenString.length() -1; i++) {
+            
+            change = false;
+            for (int i = 0; i < hiddenString.length(); i++) {
                 
-                if (Character.toString(guess.charAt(i)).equals(Character.toString(wordToGuess.charAt(i)).toLowerCase())) {
+                 
+                if (Character.toString(guess.charAt(0)).equals(Character.toString(wordToGuess.charAt(i)).toLowerCase())) {
                     
-                    hiddenString = hiddenString.substring(0, i) + wordToGuess.substring(i).replace("_", wordToGuess.substring(i, i+1));
-                        
+                    if (i == hiddenString.length() -1) {
+                        hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i));
+                    } else {
+                        hiddenString = hiddenString.substring(0, i) + Character.toString(wordToGuess.charAt(i)) + hiddenString.substring(i + 1);
                     }
                     change = true;
                 }
-            
-            if (change) {
+
+            }
+
+            if (!change) {
                 wrongGuesses += 1;
                 System.out.println("Unfortunately your guess was wrong!");
                 System.out.println(getHangman(wrongGuesses));
             }
-                */
+                
         }
 
-        
+        System.out.println(wordToGuess);
         System.out.println(hiddenString); 
 
     }
